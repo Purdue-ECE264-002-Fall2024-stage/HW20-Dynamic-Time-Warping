@@ -61,19 +61,22 @@ int main(int argc, char ** argv)
         free(seq3);
         free(seq4);
     }
-    // else if(strcmp(filetype, "INT") == 0 )
-    // {
-    //     int ** seq1 = readIntSeq(file1);
-    //     int ** seq2 = readIntSeq(file2);
-    //     if ((seq1 == NULL) || (seq2 == NULL))
-    //     {
-    //         return 1;
-    //     }
-    //     // double distance = computeDTW(seq1, seq2);
-    //     // printf("DTW distance: %f\n", distance);
-    //     // freeIntSeq(seq1);
-    //     // freeIntSeq(seq2);
-    // }
+    else if(strcmp(filetype, "STRING") == 0 )
+    {
+        char ** seq1 = readStringSeq(file1);
+        char ** seq2 = readStringSeq(file2);
+        char ** seq3 = readStringSeq(file3);
+        char ** seq4 = readStringSeq(file4);
+        if ((seq1 == NULL) || (seq2 == NULL) || (seq3 == NULL) || (seq4 == NULL))
+        {
+            return EXIT_FAILURE;
+        }
+
+        // double distance = computeDTW(seq1, seq2);
+        // printf("DTW distance: %f\n", distance);
+        // freeIntSeq(seq1);
+        // freeIntSeq(seq2);
+    }
 
     return EXIT_SUCCESS;
 }

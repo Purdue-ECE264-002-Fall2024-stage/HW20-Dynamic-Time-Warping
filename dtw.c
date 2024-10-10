@@ -47,6 +47,36 @@ char * readCharSeq(char * filename)
     return seq;
 }
 
+
+char ** readStringSeq(char * filename)
+{
+    // open the file
+    FILE * file = fopen(filename, "r");
+    if (file == NULL)
+    {
+        printf("Error opening file\n");
+        return NULL;
+    }
+
+    // allocate memory for the sequence of strings (max size of 200 words)
+    char ** seq = (char **)malloc(200 * sizeof(char *));
+    for (int i = 0; i < 200; i++)
+    {
+        seq[i] = (char *)malloc(100 * sizeof(char));
+    }
+
+    int index = 0;
+    while (index < 200 && fscanf(file, "%99s", seq[index]) == 1)
+    {
+        index++;
+    }
+
+    // Close the file
+    fclose(file);
+    return seq;
+}
+
+
 // ***
 // Complete this function
 // ***

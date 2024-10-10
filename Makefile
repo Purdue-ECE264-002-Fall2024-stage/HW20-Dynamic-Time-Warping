@@ -24,6 +24,9 @@ test2: hw20
 	./hw20 inputs/numbers1.txt inputs/numbers2.txt inputs/numbers3.txt inputs/numbers4.txt INT > outputs/output2.txt
 	diff outputs/output2.txt expected/expected2.txt
 
+test3: hw20
+	./hw20 inputs/poem1.txt inputs/poem2.txt inputs/poem3.txt inputs/poem4.txt STRING > outputs/output3.txt
+
 memory: hw20
 	$(VAL) ./hw20 inputs/alphabet1.txt inputs/alphabet2.txt inputs/alphabet3.txt inputs/alphabet4.txt CHAR > outputs/output1.txt
 

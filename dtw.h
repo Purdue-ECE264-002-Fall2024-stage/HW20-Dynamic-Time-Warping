@@ -7,6 +7,7 @@
 
 // File reading functions
 char * readCharSeq(char * filename);
+char ** readStringSeq(char * filename);
 
 // DTW functions
 double ** computeDTW(char * seq1, char * seq2, int size1, int size2);

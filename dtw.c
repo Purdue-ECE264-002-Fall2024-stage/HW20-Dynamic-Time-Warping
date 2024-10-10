@@ -115,3 +115,11 @@ void printOptimalPath(double ** accum_cost_matrix, int size1, int size2)
     }
     printf("(%d, %d)]\n", i - 1, j - 1);
 }
+
+void freeDistanceMatrix(double ** seq, int num_rows)
+{
+    for (int i = 0; i < num_rows; i++) {
+        free(seq[i]);
+    }
+    free(seq);
+}

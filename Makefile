@@ -18,9 +18,11 @@ hw20: $(OBJS)
 
 test1: hw20
 	./hw20 inputs/alphabet1.txt inputs/alphabet2.txt inputs/alphabet3.txt inputs/alphabet4.txt CHAR > outputs/output1.txt
+	diff outputs/output1.txt expected/expected1.txt
 
 test2: hw20
 	./hw20 inputs/numbers1.txt inputs/numbers2.txt inputs/numbers3.txt inputs/numbers4.txt INT > outputs/output2.txt
+	diff outputs/output2.txt expected/expected2.txt
 
 memory: hw20
 	$(VAL) ./hw20 inputs/alphabet1.txt inputs/alphabet2.txt inputs/alphabet3.txt inputs/alphabet4.txt CHAR > outputs/output1.txt

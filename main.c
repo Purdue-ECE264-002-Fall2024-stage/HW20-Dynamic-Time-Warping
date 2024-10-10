@@ -21,9 +21,10 @@ int main(int argc, char ** argv)
     char * file4 = argv[4];
     char * filetype = argv[5];
 
-    // Read the sequences from the files for characters
+    // Read the sequences from the files for characters and integers
     if(strcmp(filetype, "CHAR") == 0 || strcmp(filetype, "INT") == 0)
     {
+        // Read in the sequences
         char * seq1 = readCharSeq(file1);
         char * seq2 = readCharSeq(file2);
         char * seq3 = readCharSeq(file3);
@@ -34,7 +35,7 @@ int main(int argc, char ** argv)
             return EXIT_FAILURE;
         }
 
-        // get the sizes of each sequence
+        // Compute the distance matrices
         int size1 = strlen(seq1);
         int size2 = strlen(seq2);
         int size3 = strlen(seq3);
@@ -42,14 +43,23 @@ int main(int argc, char ** argv)
         double ** distance_matrix1 = computeDTW(seq1, seq2, size1, size2);
         double ** distance_matrix2 = computeDTW(seq1, seq3, size1, size3);
         double ** distance_matrix3 = computeDTW(seq1, seq4, size1, size4);
+
+        // Print the distance information and optimal paths 
         printf("DTW distance 1: %f\n", distance_matrix1[size1][size2]);
         printOptimalPath(distance_matrix1, size1, size2);
         printf("DTW distance 2: %f\n", distance_matrix2[size1][size3]);
         printOptimalPath(distance_matrix2, size1, size3);
         printf("DTW distance 3: %f\n", distance_matrix3[size1][size4]);
         printOptimalPath(distance_matrix3, size1, size4);
-        // freeCharSeq(seq1);
-        // freeCharSeq(seq2);
+
+        // Free the memory
+        freeDistanceMatrix(distance_matrix1, size1+1);
+        freeDistanceMatrix(distance_matrix2, size1+1);
+        freeDistanceMatrix(distance_matrix3, size1+1);
+        free(seq1);
+        free(seq2);
+        free(seq3);
+        free(seq4);
     }
     // else if(strcmp(filetype, "INT") == 0 )
     // {

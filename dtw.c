@@ -11,6 +11,12 @@
 #include "dtw.h"
 #define min(a,b) ((a) < (b) ? (a) : (b))
 
+// ***
+// Complete this function
+// ***
+// Reads the sequence of characters from a file
+// Returns the character sequence
+// NOTE: You may assume the character sequence will never exceed 100 characters
 char * readCharSeq(char * filename)
 {
     // open the file
@@ -27,7 +33,7 @@ char * readCharSeq(char * filename)
     char ch;
     while ((ch = fgetc(file)) != EOF && index < 100)
     {
-        if(ch != ',' && ch != '\n')
+        if(ch != ',' && ch != '\n')  // divide characters by commas
         {
             seq[index] = (char)ch;
             index++;
@@ -41,6 +47,12 @@ char * readCharSeq(char * filename)
     return seq;
 }
 
+// ***
+// Complete this function
+// ***
+// Computes the DTW accumulated cost matrix using provided character sequences
+// Returns the DTW accumulated cost matrix
+// NOTE: You may wish to use the constant DBL_MAX to represent infinity
 double ** computeDTW(char * seq1, char * seq2, int size1, int size2)
 {
     // create the distance matrix
@@ -78,6 +90,24 @@ double ** computeDTW(char * seq1, char * seq2, int size1, int size2)
     return distance_matrix;
 }
 
+// ***
+// Complete this function
+// ***
+// Frees the distance matrix data
+void freeDistanceMatrix(double ** seq, int num_rows)
+{
+    for (int i = 0; i < num_rows; i++) {
+        free(seq[i]);
+    }
+    free(seq);
+}
+
+// ***
+// DO NOT MODIFY THIS FUNCTION!!
+// ***
+// Prints the optimal path through the accumulated cost matrix
+// Outputs the path in the format: [(0, 0), (1, 1), ..., (size1-1, size2-1)]
+// NOTE: size1 and size2 should be lengths of the original sequences
 void printOptimalPath(double ** accum_cost_matrix, int size1, int size2)
 {
     printf("Optimal path: [");
@@ -95,18 +125,18 @@ void printOptimalPath(double ** accum_cost_matrix, int size1, int size2)
         {
             i++;
         }
-        else
+        else // we can move in any of the 3 possible directions
         {
             double min_cost = min(accum_cost_matrix[i+1][j], min(accum_cost_matrix[i][j+1], accum_cost_matrix[i+1][j+1]));
-            if(min_cost == accum_cost_matrix[i+1][j])
+            if(min_cost == accum_cost_matrix[i+1][j])  // move down
             {
                 i++;
             }
-            else if(min_cost == accum_cost_matrix[i][j+1])
+            else if(min_cost == accum_cost_matrix[i][j+1])  // move right
             {
                 j++;
             }
-            else
+            else  // move diagonally
             {
                 i++;
                 j++;
@@ -114,12 +144,4 @@ void printOptimalPath(double ** accum_cost_matrix, int size1, int size2)
         }
     }
     printf("(%d, %d)]\n", i - 1, j - 1);
-}
-
-void freeDistanceMatrix(double ** seq, int num_rows)
-{
-    for (int i = 0; i < num_rows; i++) {
-        free(seq[i]);
-    }
-    free(seq);
 }

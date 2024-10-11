@@ -7,7 +7,7 @@ ERROR = -Wvla -Werror
 GCC = gcc -std=c11 -g $(WARNING) $(ERROR) 
 VAL = valgrind --tool=memcheck --log-file=vallog --leak-check=full --verbose
 
-SRCS = dtw.c main.c
+SRCS = dtw.c helper.c main.c
 OBJS = $(SRCS:%.c=%.o)
 
 hw20: $(OBJS)
@@ -15,6 +15,8 @@ hw20: $(OBJS)
 
 .c.o:
 	$(GCC) -c $*.c
+
+testall: test1 test2 test3
 
 test1: hw20
 	./hw20 inputs/alphabet1.txt inputs/alphabet2.txt inputs/alphabet3.txt inputs/alphabet4.txt CHAR > outputs/output1.txt
@@ -26,6 +28,7 @@ test2: hw20
 
 test3: hw20
 	./hw20 inputs/poem1.txt inputs/poem2.txt inputs/poem3.txt inputs/poem4.txt STRING > outputs/output3.txt
+	diff outputs/output3.txt expected/expected3.txt
 
 memory: hw20
 	$(VAL) ./hw20 inputs/alphabet1.txt inputs/alphabet2.txt inputs/alphabet3.txt inputs/alphabet4.txt CHAR > outputs/output1.txt

@@ -72,10 +72,41 @@ int main(int argc, char ** argv)
             return EXIT_FAILURE;
         }
 
-        // double distance = computeDTW(seq1, seq2);
-        // printf("DTW distance: %f\n", distance);
-        // freeIntSeq(seq1);
-        // freeIntSeq(seq2);
+        int size1 = countElements(seq1);
+        int size2 = countElements(seq2);
+        int size3 = countElements(seq3);
+        int size4 = countElements(seq4);
+
+        double ** distance_matrix1 = computeStringDTW(seq1, seq2, size1, size2);
+        double ** distance_matrix2 = computeStringDTW(seq1, seq3, size1, size3);
+        double ** distance_matrix3 = computeStringDTW(seq1, seq4, size1, size4);
+
+        printf("DTW distance 1: %f\n", distance_matrix1[size1][size2]);
+        printOptimalPath(distance_matrix1, size1, size2);
+        printf("DTW distance 2: %f\n", distance_matrix2[size1][size3]);
+        printOptimalPath(distance_matrix2, size1, size3);
+        printf("DTW distance 3: %f\n", distance_matrix3[size1][size4]);
+        printOptimalPath(distance_matrix3, size1, size4);
+
+        freeDistanceMatrix(distance_matrix1, size1+1);
+        freeDistanceMatrix(distance_matrix2, size1+1);
+        freeDistanceMatrix(distance_matrix3, size1+1);
+        for (int i = 0; i < size1; i++)
+        {
+            free(seq1[i]);
+        }
+        for (int i = 0; i < size2; i++)
+        {
+            free(seq2[i]);
+        }
+        for (int i = 0; i < size3; i++)
+        {
+            free(seq3[i]);
+        }
+        for (int i = 0; i < size4; i++)
+        {
+            free(seq4[i]);
+        }
     }
 
     return EXIT_SUCCESS;

@@ -4,11 +4,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <float.h>
-#include <math.h>
-#include <assert.h>
 #include "dtw.h"
+#include "helper.h"
 #define min(a,b) ((a) < (b) ? (a) : (b))
 
 // ***
@@ -47,7 +45,12 @@ char * readCharSeq(char * filename)
     return seq;
 }
 
-
+// ***
+// Complete this function
+// ***
+// Reads the sequence of strings from a file
+// Returns the sequence of strings
+// NOTE: You may assume the sequence will never exceed 200 strings and each string will never exceed 100 characters
 char ** readStringSeq(char * filename)
 {
     // open the file
@@ -76,7 +79,6 @@ char ** readStringSeq(char * filename)
     return seq;
 }
 
-
 // ***
 // Complete this function
 // ***
@@ -100,6 +102,7 @@ double ** computeDTW(char * seq1, char * seq2, int size1, int size2)
             distance_matrix[i][j] = DBL_MAX;
         }
     }
+    
     // set the starting point
     distance_matrix[0][0] = 0.0;
 
@@ -123,55 +126,43 @@ double ** computeDTW(char * seq1, char * seq2, int size1, int size2)
 // ***
 // Complete this function
 // ***
-// Frees the distance matrix data
-void freeDistanceMatrix(double ** seq, int num_rows)
+// Computes the DTW accumulated cost matrix using provided sequences of strings
+// Uses the Levenshtein distance to compute the cost between two strings
+// Returns the DTW accumulated cost matrix
+double ** computeStringDTW(char ** seq1, char ** seq2, int size1, int size2)
 {
-    for (int i = 0; i < num_rows; i++) {
-        free(seq[i]);
-    }
-    free(seq);
-}
-
-// ***
-// DO NOT MODIFY THIS FUNCTION!!
-// ***
-// Prints the optimal path through the accumulated cost matrix
-// Outputs the path in the format: [(0, 0), (1, 1), ..., (size1-1, size2-1)]
-// NOTE: size1 and size2 should be lengths of the original sequences
-void printOptimalPath(double ** accum_cost_matrix, int size1, int size2)
-{
-    printf("Optimal path: [");
-    int i = 1;
-    int j = 1;
-
-    while(i < size1 || j < size2)  // while we have not reached the final matrix piece
+    // create the distance matrix
+    double ** distance_matrix = (double **)malloc((size1+1) * sizeof(double *));
+    for (int i = 0; i < size1 + 1; i++)
     {
-        printf("(%d, %d), ", i - 1, j - 1);
-        if(i == size1) // we have reached the end of the first sequence
+        distance_matrix[i] = (double *)malloc((size2+1) * sizeof(double));
+    }
+
+    // initialize the distance matrix - use DBL_MAX to represent infinity
+    for (int i = 0; i < size1+1; i++)
+    {
+        for (int j = 0; j < size2+1; j++)
         {
-            j++;
-        }
-        else if(j == size2) // we have reached the end of the second sequence
-        {
-            i++;
-        }
-        else // we can move in any of the 3 possible directions
-        {
-            double min_cost = min(accum_cost_matrix[i+1][j], min(accum_cost_matrix[i][j+1], accum_cost_matrix[i+1][j+1]));
-            if(min_cost == accum_cost_matrix[i+1][j])  // move down
-            {
-                i++;
-            }
-            else if(min_cost == accum_cost_matrix[i][j+1])  // move right
-            {
-                j++;
-            }
-            else  // move diagonally
-            {
-                i++;
-                j++;
-            }
+            distance_matrix[i][j] = DBL_MAX;
         }
     }
-    printf("(%d, %d)]\n", i - 1, j - 1);
+    
+    // set the starting point
+    distance_matrix[0][0] = 0.0;
+
+    // compute the minimum distance
+    for (int i = 1; i < size1+1; i++)
+    {
+        for (int j = 1; j < size2+1; j++)
+        {
+            double current_cost = Levenshtein(seq1[i - 1], seq2[j - 1]);
+            double insertion_cost = distance_matrix[i-1][j];
+            double deletion_cost = distance_matrix[i][j-1];
+            double match_cost = distance_matrix[i-1][j-1];
+            
+            distance_matrix[i][j] =  current_cost + min(insertion_cost, min(deletion_cost, match_cost));
+        }
+    }
+
+    return distance_matrix;
 }

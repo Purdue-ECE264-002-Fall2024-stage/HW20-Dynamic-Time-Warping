@@ -53,7 +53,7 @@ int countElements(char **seq) {
 // Complete this function
 // ***
 // Frees the distance matrix data
-void freeDistanceMatrix(double ** seq, int num_rows)
+void freeCostMatrix(double ** seq, int num_rows)
 {
     for (int i = 0; i < num_rows; i++) {
         free(seq[i]);
@@ -61,10 +61,8 @@ void freeDistanceMatrix(double ** seq, int num_rows)
     free(seq);
 }
 
-// *******************************************************************************
-
 // ***
-// DO NOT MODIFY THIS FUNCTION!!
+// Complete this function
 // ***
 // Prints the optimal path through the accumulated cost matrix
 // Outputs the path in the format: [(0, 0), (1, 1), ..., (size1-1, size2-1)]

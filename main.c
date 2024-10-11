@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "dtw.h"
+#include "helper.h"
 
 int main(int argc, char ** argv)
 {
@@ -40,22 +41,22 @@ int main(int argc, char ** argv)
         int size2 = strlen(seq2);
         int size3 = strlen(seq3);
         int size4 = strlen(seq4);
-        double ** distance_matrix1 = computeDTW(seq1, seq2, size1, size2);
-        double ** distance_matrix2 = computeDTW(seq1, seq3, size1, size3);
-        double ** distance_matrix3 = computeDTW(seq1, seq4, size1, size4);
+        double ** cost_matrix1 = computeDTW(seq1, seq2, size1, size2);
+        double ** cost_matrix2 = computeDTW(seq1, seq3, size1, size3);
+        double ** cost_matrix3 = computeDTW(seq1, seq4, size1, size4);
 
         // Print the distance information and optimal paths 
-        printf("DTW distance 1: %f\n", distance_matrix1[size1][size2]);
-        printOptimalPath(distance_matrix1, size1, size2);
-        printf("DTW distance 2: %f\n", distance_matrix2[size1][size3]);
-        printOptimalPath(distance_matrix2, size1, size3);
-        printf("DTW distance 3: %f\n", distance_matrix3[size1][size4]);
-        printOptimalPath(distance_matrix3, size1, size4);
+        printf("DTW distance 1: %f\n", cost_matrix1[size1][size2]);
+        printOptimalPath(cost_matrix1, size1, size2);
+        printf("DTW distance 2: %f\n", cost_matrix2[size1][size3]);
+        printOptimalPath(cost_matrix2, size1, size3);
+        printf("DTW distance 3: %f\n", cost_matrix3[size1][size4]);
+        printOptimalPath(cost_matrix3, size1, size4);
 
         // Free the memory
-        freeDistanceMatrix(distance_matrix1, size1+1);
-        freeDistanceMatrix(distance_matrix2, size1+1);
-        freeDistanceMatrix(distance_matrix3, size1+1);
+        freeCostMatrix(cost_matrix1, size1+1);
+        freeCostMatrix(cost_matrix2, size1+1);
+        freeCostMatrix(cost_matrix3, size1+1);
         free(seq1);
         free(seq2);
         free(seq3);
@@ -77,20 +78,20 @@ int main(int argc, char ** argv)
         int size3 = countElements(seq3);
         int size4 = countElements(seq4);
 
-        double ** distance_matrix1 = computeStringDTW(seq1, seq2, size1, size2);
-        double ** distance_matrix2 = computeStringDTW(seq1, seq3, size1, size3);
-        double ** distance_matrix3 = computeStringDTW(seq1, seq4, size1, size4);
+        double ** cost_matrix1 = computeStringDTW(seq1, seq2, size1, size2);
+        double ** cost_matrix2 = computeStringDTW(seq1, seq3, size1, size3);
+        double ** cost_matrix3 = computeStringDTW(seq1, seq4, size1, size4);
 
-        printf("DTW distance 1: %f\n", distance_matrix1[size1][size2]);
-        printOptimalPath(distance_matrix1, size1, size2);
-        printf("DTW distance 2: %f\n", distance_matrix2[size1][size3]);
-        printOptimalPath(distance_matrix2, size1, size3);
-        printf("DTW distance 3: %f\n", distance_matrix3[size1][size4]);
-        printOptimalPath(distance_matrix3, size1, size4);
+        printf("DTW distance 1: %f\n", cost_matrix1[size1][size2]);
+        printOptimalPath(cost_matrix1, size1, size2);
+        printf("DTW distance 2: %f\n", cost_matrix2[size1][size3]);
+        printOptimalPath(cost_matrix2, size1, size3);
+        printf("DTW distance 3: %f\n", cost_matrix3[size1][size4]);
+        printOptimalPath(cost_matrix3, size1, size4);
 
-        freeDistanceMatrix(distance_matrix1, size1+1);
-        freeDistanceMatrix(distance_matrix2, size1+1);
-        freeDistanceMatrix(distance_matrix3, size1+1);
+        freeCostMatrix(cost_matrix1, size1+1);
+        freeCostMatrix(cost_matrix2, size1+1);
+        freeCostMatrix(cost_matrix3, size1+1);
         for (int i = 0; i < size1; i++)
         {
             free(seq1[i]);

@@ -23,7 +23,7 @@ int Levenshtein(const char* str1, const char* str2)
 // Returns the number of elements
 int countElements(char **seq) 
 {
-    
+
 }
 
 // ***
@@ -35,16 +35,17 @@ void freeCostMatrix(double ** seq, int num_rows)
 
 }
 
+
 // ***
 // Complete this function
 // ***
 // Prints the optimal path through the accumulated cost matrix
-// Outputs the path in the format: [(0, 0), (1, 1), ..., (size1-1, size2-1)]
 // NOTE: size1 and size2 should be lengths of the original sequences
 void printOptimalPath(double ** accum_cost_matrix, int size1, int size2)
 {
-    // (1) check for increasing along both sequences (diagonal)
-    // (2) check for increasing along sequence 1 (vertical)
-    // (3) check for increasing along sequence 2 (horizontal)
+    // Start from accum_cost_matrix[size1][size2] and find the shortest path to (0, 0)
+    // Print shortest path in the format: [(0, 0), (1, 1), ..., (size1, size2)] - reverse order
+    // Find the smallest cell between the left, top and diagonally left cell
+    // The precedence for breaking a tie is diagonally left > top > left
     
 }

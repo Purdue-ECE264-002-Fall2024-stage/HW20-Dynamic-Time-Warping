@@ -30,8 +30,11 @@ test3: hw20
 	./hw20 inputs/poem1.txt inputs/poem2.txt inputs/poem3.txt inputs/poem4.txt STRING > outputs/output3.txt
 	diff outputs/output3.txt expected/expected3.txt
 
-memory: hw20
+memory_c: hw20
 	$(VAL) ./hw20 inputs/alphabet1.txt inputs/alphabet2.txt inputs/alphabet3.txt inputs/alphabet4.txt CHAR > outputs/output1.txt
+
+memory_s: hw20
+	$(VAL) ./hw20 inputs/poem1.txt inputs/poem2.txt inputs/poem3.txt inputs/poem4.txt STRING > outputs/output3.txt
 
 clean:
 	rm -f hw20 *.o outputs/*.txt vallog *bin

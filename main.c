@@ -108,6 +108,11 @@ int main(int argc, char ** argv)
         {
             free(seq4[i]);
         }
+
+        free(seq1);
+        free(seq2);
+        free(seq3);
+        free(seq4);
     }
 
     return EXIT_SUCCESS;

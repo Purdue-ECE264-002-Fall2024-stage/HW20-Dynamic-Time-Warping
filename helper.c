@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <float.h>
 #include "helper.h"
 #define min(a,b) ((a) < (b) ? (a) : (b))
 
@@ -12,7 +13,7 @@
 // NOTE: You may wish to review HW06 for the Levenshtein distance algorithm
 int Levenshtein(const char* str1, const char* str2)
 {
-  
+    
 }
 
 // ***
@@ -22,7 +23,7 @@ int Levenshtein(const char* str1, const char* str2)
 // Returns the number of elements
 int countElements(char **seq) 
 {
-
+    
 }
 
 // ***
@@ -31,7 +32,7 @@ int countElements(char **seq)
 // Frees the cost matrix data
 void freeCostMatrix(double ** seq, int num_rows)
 {
-    
+
 }
 
 // ***
@@ -42,7 +43,8 @@ void freeCostMatrix(double ** seq, int num_rows)
 // NOTE: size1 and size2 should be lengths of the original sequences
 void printOptimalPath(double ** accum_cost_matrix, int size1, int size2)
 {
-    // (1) check for increasing along sequence 1
-    // (2) check for increasing along sequence 2
-    // (3) check for increasing along both sequences (diagonal)
+    // (1) check for increasing along both sequences (diagonal)
+    // (2) check for increasing along sequence 1 (vertical)
+    // (3) check for increasing along sequence 2 (horizontal)
+    
 }
